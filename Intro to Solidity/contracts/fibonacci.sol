@@ -1,12 +1,22 @@
 pragma solidity 0.4.19;
 
+contract fibonacci {
+    uint _curr = 0;
+    uint _next = 1;
 
-contract Fibonacci {
-    /* Carry out calculations to find the nth Fibonacci number */
-    function fibRecur(uint n) public pure returns (uint) {
+    function fibonnaci() public {
+        _curr = 0;
+        _next = 1;
     }
 
-    /* Carry out calculations to find the nth Fibonacci number */
-    function fibIter(uint n) public returns (uint) {
+
+    function fibIter() public returns (uint fib) {
+        uint stor = _curr;
+        _curr = _next;
+        _next = stor + _next;
+        return stor;
     }
+    
+    
+    
 }
