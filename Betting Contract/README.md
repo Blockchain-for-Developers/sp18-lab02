@@ -12,6 +12,9 @@ Build a simple betting contract that rewards correct guesses of outcomes. This c
 * If no gamblers bet on the correct outcome, the oracle wins the sum of the funds
 * The oracle may choose the correct outcome only after all gamblers have placed their bets
 * You may add as many auxiliary functions as you want, they are not necessary however
+* Owner cannot select himself/herself as an oracle.
+* There must be more than one possible outcomes set by the owner.
+
 
 **There are at least two aspects of this scheme that leave it open to malicious attack. Can you find them?**
 
