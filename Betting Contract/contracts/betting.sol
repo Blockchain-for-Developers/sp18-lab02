@@ -100,7 +100,29 @@ contract Betting {
 
     /* The oracle chooses which outcome wins */
     function makeDecision(uint _outcome) public oracleOnly() outcomeExists(_outcome) {
+        require(oracleOnly());
+        require(bets[gamblerA].initialized);
+        require(bets[gamblerB].initialized);
 
+        if (bets[gamblerA].outcome == bets[gamblerB].outcome) {
+            winnings[gamblerA] += bets[gamblerA].amount;
+            winnings[gamblerB] += bets[gamblerB].amount;
+            
+        }
+        else if (bets[gamblerA].outcome == _outcome) {
+            winnings[gamblerA] += bets[gamblerA].amount + bets[gamblerB].amount;
+            
+        }
+
+        else if (bets[gamblerB].outcome == _outcome) {
+            winnings[gamblerB] += bets[gamblerA].amount + bets[gamblerB].amount;
+            
+        }
+        else {
+            winnings[oracle] += bets[gamblerA].amount + bets[gamblerB].amount;
+        }
+
+        contractReset();
     }
 
     /* Allow anyone to withdraw their winnings safely (if they have enough) */
@@ -114,7 +136,7 @@ contract Betting {
         }
         else {
             winnings[msg.sender] += withdrawAmount;
-            return winnings[msg.sender]; //cant return -1 bc uint
+            return winnings[msg.sender]; //cant return -1 bc uint??? return this instead
         }
 
 
