@@ -56,16 +56,25 @@ contract Betting {
     }
 
     modifier outcomeExists(uint outcome) {
-        
-        _;
-    }
+      require(isIn(outcome, outcomes));
+      _;
+  }
+
+  function isIn(uint item, uint[] list) public returns (bool) {
+      for (uint i = 0; i < list.length; i++) {
+          if (list[i]==item) {
+              return true;
+          }
+      return false;
+      }
+  }
 
     /* Owner chooses their trusted Oracle */
     function chooseOracle(address _oracle) public ownerOnly() returns (address) {
         oracle = _oracle;
     }
 
-    /* Gamblers place their bets, preferably after calling checkOutcomes */
+    /* Gamblers place their bets, preferably after calling tcomes */
     function makeBet(uint _outcome) public payable gamblersOnly() returns (bool) {
         if (checkOutcomes(_outcome) == 0) {
             return false;
@@ -102,12 +111,12 @@ contract Betting {
             return 0;
         }
     }
-    
+
     /* Allow anyone to check the outcomes they can bet on */
     function checkOutcomes(uint outcome) public view returns (uint) {
         return outcomes[outcome];
     }
-    
+
     /* Allow anyone to check if they won any bets */
     function checkWinnings() public view returns(uint) {
         return winnings[msg.sender];
