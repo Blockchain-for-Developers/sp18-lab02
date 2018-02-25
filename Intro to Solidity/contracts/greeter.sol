@@ -1,12 +1,14 @@
-pragma solidity 0.4.19;
+pragma solidity ^0.4.17;
 
-
+// Q1
 contract Greeter {
-    string private greeting;
-
-    function Greeter(string _greeter) public {
+    string greeting;
+    
+    function Greetier (string _greeting) public {
+        greeting = _greeting;
     }
-
-    function greet() public view returns (string) {
+    
+    function greet() public constant returns (string) {
+        return greeting;
     }
-}
+} 
